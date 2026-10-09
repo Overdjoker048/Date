@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On se fait un date ? 💌</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="card">
+    <div class="progress" id="progress" hidden>
+      <span id="progress-label"></span>
+      <div class="progress-track"><div id="progress-bar"></div></div>
+    </div>
+
+    <section class="page" id="intro">
+      <span class="badge">💌 Une petite question</span>
+      <h1>On se fait un date ?</h1>
+      <p>Choisis le programme qui te ferait plaisir ✨</p>
+
+      <div class="swap-buttons" id="swap-buttons">
+        <button class="primary" id="yes" type="button">Oui 💖</button>
+        <button class="secondary" id="no" type="button">Non 🙈</button>
+      </div>
+    </section>
+
+    <form id="date-form" novalidate>
+      <section class="page step" data-step="1" hidden>
+        <span class="badge">🍽️ Le repas</span>
+        <h1>On mange quoi ?</h1>
+
+        <div class="choices">
+          <label class="choice"><input type="radio" name="meal" value="Burger"><span>🍔 Burger</span></label>
+          <label class="choice"><input type="radio" name="meal" value="Pizza"><span>🍕 Pizza</span></label>
+          <label class="choice"><input type="radio" name="meal" value="Japonais"><span>🍣 Japonais</span></label>
+          <label class="choice"><input type="radio" name="meal" value="Self cooking"><span>👩‍🍳 Self cooking</span></label>
+          <label class="choice"><input type="radio" name="meal" value="Autre"><span>✨ Autre</span></label>
+        </div>
+
+        <div class="extra-field" id="cooking-field" hidden>
+          <label for="cooking-dish">Quel plat allons-nous cuisiner ?</label>
+          <input id="cooking-dish" type="text" maxlength="80" placeholder="Par exemple : des lasagnes">
+        </div>
+
+        <div class="extra-field" id="meal-other-field" hidden>
+          <label for="meal-other-text">Ton autre idée de repas :</label>
+          <input id="meal-other-text" type="text" maxlength="80" placeholder="Par exemple : des crêpes">
+        </div>
+
+        <div class="nav">
+          <button class="secondary" type="button" data-back="0">← Retour</button>
+          <button class="primary" type="button" data-next="2">Continuer →</button>
+        </div>
+      </section>
+
+      <section class="page step" data-step="2" hidden>
+        <span class="badge">🎲 L’activité</span>
+        <h1>On fait quoi ?</h1>
+
+        <div class="choices">
+          <label class="choice"><input type="radio" name="activity" value="Film et série"><span>🎬 Netflix and chill</span></label>
+          <label class="choice"><input type="radio" name="activity" value="Jeux de société / vidéo"><span>🎮 Jeux de société / vidéo</span></label>
+          <label class="choice"><input type="radio" name="activity" value="Visite"><span>🏛️ Visite</span></label>
+          <label class="choice"><input type="radio" name="activity" value="Cine"><span>🏛️ Cinéma</span></label>
+          <label class="choice"><input type="radio" name="activity" value="Autre"><span>✨ Autre</span></label>
+        </div>
+
+        <div class="extra-field" id="activity-other-field" hidden>
+          <label for="activity-other-text">Ton autre idée d’activité :</label>
+          <input id="activity-other-text" type="text" maxlength="80" placeholder="Par exemple : une balade">
+        </div>
+
+        <div class="nav">
+          <button class="secondary" type="button" data-back="1">← Retour</button>
+          <button class="primary" type="button" data-next="3">Continuer →</button>
+        </div>
+      </section>
+
+      <section class="page step" data-step="3" hidden>
+        <span class="badge">📅 Les disponibilités</span>
+        <h1>Tu es dispo quand ?</h1>
+        <p>Sélectionne un ou plusieurs jours.</p>
+
+        <div class="calendar">
+          <div class="month-bar">
+            <button id="previous" type="button" aria-label="Mois précédent">‹</button>
+            <strong id="month-title" aria-live="polite"></strong>
+            <button id="following" type="button" aria-label="Mois suivant">›</button>
+          </div>
+          <div class="calendar-grid" id="calendar-grid"></div>
+          <p id="selected-count" aria-live="polite"></p>
+        </div>
+
+        <div class="nav">
+          <button class="secondary" type="button" data-back="2">← Retour</button>
+          <button class="primary" id="send" type="submit">Envoyer</button>
+        </div>
+      </section>
+    </form>
+
+    <section class="page success" id="finished" hidden>
+      <div class="success-heart" aria-hidden="true">💌</div>
+      <span class="badge">Merci pour ta réponse</span>
+      <h1>Demande d’envoi effectuée ✨</h1>
+    </section>
+
+    <p id="error" role="alert"></p>
+  </main>
+</body>
+</html>

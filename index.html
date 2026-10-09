@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100b19">
+  <title>Romain Descartes — Ton prochain copain</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, sans-serif;
+      color: #fff5fc;
+      background: #100b19;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 40px 20px;
+      background:
+        radial-gradient(ellipse at 15% 20%, #a43a7540, transparent 45%),
+        radial-gradient(ellipse at 85% 80%, #6659db40, transparent 45%),
+        #100b19;
+    }
+
+    .scene {
+      width: min(100%, 900px);
+      perspective: 1400px;
+    }
+
+    .card {
+      padding: clamp(24px, 5vw, 48px);
+      border: 1px solid #ffffff25;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #302039, #191322);
+      box-shadow: 0 30px 80px #0008, inset 0 1px #ffffff15;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform .18s ease-out;
+    }
+
+    .badge, .profile, .grid, footer {
+      transform: translateZ(35px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid #ff9ccf35;
+      border-radius: 50px;
+      color: #ffb7dc;
+      background: #ff8ecb0a;
+      font-size: .75rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #ff91c9;
+      box-shadow: 0 0 15px #ff91c9;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin: 32px 0;
+    }
+
+    .identity {
+      width: min(100%, 270px);
+      flex-shrink: 0;
+    }
+
+    .photo {
+      width: 132px;
+      height: 154px;
+      border: 1px solid #ffb7dc60;
+      border-radius: 24px;
+      background: url("pdp1.png") center / cover no-repeat;
+      box-shadow: 10px 12px 0 #0003;
+    }
+
+    .contact {
+      display: grid;
+      gap: 10px;
+      margin-top: 24px;
+      font-style: normal;
+      font-size: .85rem;
+      line-height: 1.5;
+    }
+
+    .contact p { margin: 0; }
+
+    .contact strong {
+      color: #ffb7dc;
+      font-weight: 600;
+    }
+
+    .contact a {
+      color: #eee3f5;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .contact a:hover { text-decoration: underline; }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -.06em;
+    }
+
+    h1 span { color: #ffacd5; }
+
+    .subtitle {
+      margin: 0;
+      color: #cbbfd7;
+      line-height: 1.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .item {
+      padding: 20px;
+      border: 1px solid #ffffff12;
+      border-radius: 18px;
+      background: #ffffff04;
+    }
+
+    .item h2 {
+      margin: 0 0 10px;
+      color: #baabc7;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .item p {
+      margin: 0;
+      font-size: .98rem;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .item ul {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .item li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .98rem;
+      line-height: 1.7;
+    }
+
+    .item li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #ffacd5;
+    }
+
+    .item li:last-child {
+      color: #cbbfd7;
+    }
+
+    .detail { color: #cbbfd7; }
+
+    .objective {
+      grid-column: 1 / -1;
+      background: linear-gradient(110deg, #ff91c918, #9b8cff12);
+      border-color: #ff91c930;
+    }
+
+    .objective p {
+      color: #ffb7dc;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 700;
+    }
+
+    footer { margin-top: 26px; }
+
+    .date-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      color: #271226;
+      background: #ffacd5;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 24px #ff91c920;
+      transition: background .2s, transform .2s;
+    }
+
+    .date-button:hover {
+      transform: translateY(-3px);
+      background: #ffc7e3;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #ffb7dc;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 620px) {
+      body { padding: 24px 14px; }
+      .profile { flex-direction: column; text-align: center; }
+      .photo { margin-inline: auto; }
+      .grid { grid-template-columns: 1fr; }
+      .date-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { transform: none; }
+      .card, .date-button { transition: none; }
+      .date-button:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="scene">
+    <article class="card" aria-labelledby="name">
+      <div class="badge">Candidature sentimentale</div>
+
+      <header class="profile">
+        <div class="identity">
+          <div class="photo" role="img" aria-label="Photo de Romain Descartes"></div>
+
+          <address class="contact">
+            <p>
+              <strong>Numéro :</strong>
+              <a href="tel:+33647916422">06 47 91 64 22</a>
+            </p>
+            <p>
+              <strong>Email :</strong>
+              <a href="mailto:lhommedetavie@gmail.com">lhommedetavie@gmail.com</a>
+            </p>
+          </address>
+        </div>
+
+        <div>
+          <h1 id="name">Romain<br><span>Descartes</span></h1>
+          <p class="subtitle">
+            19 ans.<br>
+            Date de naissance :
+            <time datetime="2007-09-07">07/09/2007</time>.<br>
+            Taille : 1,79 m.<br>
+            Étudiant à l’EPITA.
+          </p>
+        </div>
+      </header>
+
+      <section class="grid" aria-label="Mon CV">
+        <div class="item objective">
+          <h2>L’objectif du CV</h2>
+          <p>Devenir ton prochain copain</p>
+        </div>
+
+        <div class="item">
+          <h2>Mes études</h2>
+          <p>
+            EPITA.<br>
+            Deuxième année de classe préparatoire.
+          </p>
+        </div>
+
+        <div class="item">
+          <h2>Mes compétences</h2>
+          <p>Tout ce dont tu rêverais.</p>
+        </div>
+
+        <div class="item">
+          <h2>Mes spécialités au lycée</h2>
+          <ul>
+            <li>Mathématiques</li>
+            <li>NSI</li>
+            <li>Physique</li>
+          </ul>
+          <p class="detail">Physique abandonnée en fin de première.</p>
+        </div>
+
+        <div class="item">
+          <h2>Langue</h2>
+          <p>Anglais : niveau B1</p>
+          <p>Espagnol : niveau A1</p>
+          <p>Te parler : niveau C2.</p>
+        </div>
+
+        <div class="item">
+          <h2>Fumeur ?</h2>
+          <p>
+            Oui.<br>
+            <span class="detail">
+              Mais je pourrais arrêter si une madame me le demandait
+            </span>
+          </p>
+        </div>
+
+        <div class="item">
+          <h2>Mon parfum ?</h2>
+          <p>Au bout du monde, de Adopt</p>
+        </div>
+
+        <div class="item">
+          <h2>Musclé ?</h2>
+          <p>Assez pour te porter comme ma princesse</p>
+        </div>
+      </section>
+
+      <footer>
+        <a class="date-button" href="Date/index.html">
+          Faire un date <span aria-hidden="true">♡ →</span>
+        </a>
+      </footer>
+    </article>
+  </main>
+
+  <script>
+    const scene = document.querySelector(".scene");
+    const card = document.querySelector(".card");
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+
+    let frame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    let bounds;
+
+    scene.addEventListener("pointerenter", () => {
+      bounds = scene.getBoundingClientRect();
+    });
+
+    scene.addEventListener("pointermove", event => {
+      if (motion.matches || event.pointerType !== "mouse") return;
+
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+
+      if (frame) return;
+
+      frame = requestAnimationFrame(() => {
+        const rect = bounds || (bounds = scene.getBoundingClientRect());
+        const x = (pointerX - rect.left) / rect.width - .5;
+        const y = (pointerY - rect.top) / rect.height - .5;
+
+        card.style.setProperty("--rx", `${-y * 10}deg`);
+        card.style.setProperty("--ry", `${x * 10}deg`);
+        frame = 0;
+      });
+    });
+
+    scene.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      card.style.removeProperty("--rx");
+      card.style.removeProperty("--ry");
+    });
+
+    window.addEventListener("resize", () => {
+      bounds = null;
+    });
+
+    window.addEventListener("scroll", () => {
+      bounds = null;
+    }, { passive: true });
+  </script>
+</body>
+</html>
